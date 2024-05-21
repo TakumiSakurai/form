@@ -1,0 +1,9 @@
+button{
+    display: block;
+   margin-top: 20px;
+   margin-left: auto;
+   margin-right: auto;
+}
+.delete-button{
+    background-color: #e94e77 !important;
+}
