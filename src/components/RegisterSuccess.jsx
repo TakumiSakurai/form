@@ -3,10 +3,11 @@ import {useLocation ,Navigate, useNavigate} from 'react-router-dom';
 import './RegisterSuccess.css';
 import { motion } from 'framer-motion';
 
-export default function RegisterSuccess(state) {
+export default function RegisterSuccess() {
     const location = useLocation();
-    const { user } = location.state || {};
-        const navigate = useNavigate();
+    const { state } = location;
+    const{userName, userEmail, userPassword, userAge, userGender} = state;
+    const navigate = useNavigate();
 
     const top = () => {
         navigate('/');
@@ -26,11 +27,11 @@ export default function RegisterSuccess(state) {
             <h2>登録完了</h2>
             <p>以下の内容で登録しました</p>
             <div className="title">
-                <div className='text'>名前: {user.name}</div>
-                <div className='text'>メールアドレス: {user.email}</div>
-                <div className='text'>パスワード: {user.password}</div>
-                <div className='text'>年齢: {user.age}</div>
-                <div className='text'>性別: {user.gender}</div>
+                <div className='text'>名前: {userName}</div>
+                <div className='text'>メールアドレス: {userEmail}</div>
+                <div className='text'>パスワード: {userPassword}</div>
+                <div className='text'>年齢: {userAge}</div>
+                <div className='text'>性別: {userGender}</div>
             </div>
         </div>
             <button className='return' onClick={top}>トップに戻る</button>
