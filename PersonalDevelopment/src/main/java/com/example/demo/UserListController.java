@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,16 +29,30 @@ public class UserListController {
 	}
 	
 
-	@PostMapping("/userlist/delete")
+
+	@PostMapping("/userlist/add")
 	@CrossOrigin
-	public List<? extends UserlistInterface>delete(@RequestBody Userlist user) {
-		service.delete(user);
-		return service.getAll();
+	public Userlist add(@RequestBody Userlist userlist) {
+		System.out.println("UserListController.add()");
+		return service.add(userlist);
 	}
+	
+//	@PostMapping("/userlist/login")
 //	@CrossOrigin
-//	@GetMapping("/userlist/add")
-//	public int addUser(@RequestBody Userlist newUser) {
-//		return service.save(newUser);
+//	public String Login(@RequestParam String userEmail) {
+//		System.out.println("UserListController.login()");
+//		return service.login(userEmail);
 //	}
+//	
+	
+	
+	
+	@DeleteMapping("/userlist/delete/{id}")
+	@CrossOrigin
+	public void delete(@PathVariable("id") int user) {
+		System.out.println("id"+ user);
+		service.delete(user);
+	}
+
 
 }

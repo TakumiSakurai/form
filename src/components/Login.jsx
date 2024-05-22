@@ -3,19 +3,27 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 export default function Login() {
-    const [user, setUser] = useState([]);
     const navigate = useNavigate();
+    let loginUser ={};
+
 
     const toLogin = (e) => {
         e.preventDefault();
-        const newUser = {
-            id: e.target.id.value,
-            password: e.target.password.value,
+        loginUser = {
+            userEmail: e.target.userEmail.value,
+            userPassword: e.target.userPassword.value,
         };
-        setUser([...user, newUser]);
-        console.log(newUser);
+        axios.post('http://localhost:8080/userlist/login', loginUser.userEmail)
+            .then(
+                navigate('/components/AdminSuccess')
+            )
+            .catch((error) => {
+                console.error('Error logging in:', error);
+            });
+
         navigate('/components/LoginPage');
     }
     return (
@@ -30,13 +38,12 @@ export default function Login() {
             transition={{
                 delay:0.5
             }}
-            exit={{}}
         >
             <h1>ログインページ</h1>
             <p>ログインIDとパスワードを入力してください</p>
             <form onSubmit={toLogin}>
-                <input type="text" name="id" placeholder="ID" value="何某" required/><br />
-                <input type="password" name="password" placeholder="Password" value="password" required/><br />
+                <input type="text" name="userEmail" placeholder="mailaddress" value="abc@cdf.com" required/><br />
+                <input type="password" name="userPassword" placeholder="Password" value="abcdef1" required/><br />
                 <button type='submit'>ログイン</button>
             </form>
         </motion.div>

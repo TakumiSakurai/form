@@ -18,19 +18,26 @@ public class UserlistDataService{
 		return repository.findAll();
     }
 	
-	public int save(Userlist newUser) {
-		repository.save(newUser);
-		return newUser.getUserId();
+	public Userlist add(Userlist newUser) {
+		return repository.save(newUser);
+		
+		
 		
 	}
 
-	public void delete(UserlistInterface user) {
+	public void delete(int user) {
+			repository.deleteById(user);
 		
-		if (user instanceof Userlist) {
-			repository.delete((Userlist) user);
-		}
 		
 	}
 	
+
+//	public String login(String userEmail ,Userlist userlist) {
+//		if(userEmail Instanceof Userlist) {
+//            return repository.findByUserPassword(userEmail);
+//        }
+//		// TODO 自動生成されたメソッド・スタブ
+//		 return null;
+//	}
 
 }

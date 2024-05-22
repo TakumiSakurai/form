@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import './AdminSuccess.css';
+import axios from 'axios';
 
 export default function AdminSuccess() {
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
+    const fetchUsers = () => {
         fetch('http://localhost:8080/userlist')
             .then(res => res.json())
             .then(data => setUsers(data))
             .catch(error => console.error('Error fetching user data:', error));
+    };
+
+    useEffect(() => {
+        fetchUsers();
     }, []);
-    const deleteButton = (user) => {
-        console.log(user);
-        fetch('http://localhost:8080/userlist/delete', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(users),
-        })
-            .then(res => res.json())
-            .then(data => {
-                setUsers(data);
+
+    const deleteButton = (userId) => {
+        console.log(userId);
+        axios.delete(`http://localhost:8080/userlist/delete/${userId}`)
+            .then(() => {
+                fetchUsers(); // ユーザー削除後にユーザー一覧を再度フェッチ
             })
             .catch(error => console.error('Error deleting user:', error));
-    }
-    
+    };
+
     const Logout = () => {
         window.location.href = '/';
     };
-
 
     return (
         <>
@@ -58,7 +56,7 @@ export default function AdminSuccess() {
                             <td>{user.userAge}</td>
                             <td>{user.userGender}</td>
                             <td><button>編集</button></td>
-                            <td><button onClick={deleteButton}>削除</button></td>
+                            <td><button onClick={() => deleteButton(user.userId)}>削除</button></td>
                         </tr>
                     ))}
                 </tbody>
