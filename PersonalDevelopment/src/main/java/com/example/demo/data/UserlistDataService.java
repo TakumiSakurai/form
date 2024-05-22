@@ -18,8 +18,12 @@ public class UserlistDataService{
 		return repository.findAll();
     }
 	
-	public Userlist add(Userlist newUser) {
-		return repository.save(newUser);
+	public Userlist add(Userlist userlist) {
+		if (repository.findByMailaddress(userlist.getUserEmail()) != null) {
+			System.out.println("メールアドレスが重複しています");
+			return null;
+		}
+		return repository.save(userlist);
 		
 		
 		
@@ -29,6 +33,11 @@ public class UserlistDataService{
 			repository.deleteById(user);
 		
 		
+	}
+
+	public Userlist login(String userEmail, String userPassword) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 	
 

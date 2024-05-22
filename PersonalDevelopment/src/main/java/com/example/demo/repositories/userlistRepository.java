@@ -7,5 +7,8 @@ import com.example.demo.model.Userlist;
 
 @Repository
 public interface userlistRepository extends JpaRepository<Userlist, Integer> {
+
+
+	Object findByMailaddress(String userEmail);
   
 }
