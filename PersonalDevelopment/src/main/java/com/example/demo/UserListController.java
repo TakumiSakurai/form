@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class UserListController {
 		return service.getAll();
 	}
 	
+	
 
 
 	@PostMapping("/userlist/add")
@@ -42,9 +44,16 @@ public class UserListController {
 	@CrossOrigin
 	public Userlist Login(@RequestParam String userEmail ,String userPassword) {
 		System.out.println(userEmail+userPassword);
-		return service.login(userEmail,userPassword);
+		return null;
+		//return service.login(userEmail,userPassword);
 	}
 	
+	@PutMapping("/userlist/update/{id}")
+	@CrossOrigin
+	public Userlist update(@PathVariable("id") int user, @RequestBody Userlist userlist) {
+		System.out.println("id" + user);
+		return service.update(user,userlist);
+	}
 	
 	
 	

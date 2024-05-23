@@ -39,14 +39,20 @@ public class UserlistDataService{
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
-	
 
-//	public String login(String userEmail ,Userlist userlist) {
-//		if(userEmail Instanceof Userlist) {
-//            return repository.findByUserPassword(userEmail);
-//        }
-//		// TODO 自動生成されたメソッド・スタブ
-//		 return null;
-//	}
+	public Userlist update(int user, Userlist userlist ) {
+		Userlist newUser  = repository.findById(user).orElse(null);
+		if (newUser  != null) {
+			newUser .setUserName(userlist.getUserName());
+			newUser .setUserEmail(userlist.getUserEmail());
+			newUser .setUserPassword(userlist.getUserPassword());
+			newUser.setUserAge(userlist.getUserAge());
+			newUser .setUserGender(userlist.getUserGender());
+
+			return repository.save(newUser);
+		}
+		return null;
+	}
+	
 
 }
