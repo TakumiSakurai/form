@@ -22,6 +22,7 @@ export default function LoginPage() {
             exit={{}}
         >
         <h1>MyPage</h1>
+        <p>こんにちは○○さん！</p>
         <a href='/components/Edit'>個人情報の変更はこちらから</a>
         <section className='todo'>
             <Todo />

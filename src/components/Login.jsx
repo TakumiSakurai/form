@@ -14,17 +14,13 @@ export default function Login() {
         e.preventDefault();
         loginUser = {
             userEmail: e.target.userEmail.value,
-            userPassword: e.target.userPassword.value,
+            userPassword: e.target.userPassword.value
         };
-        axios.post('http://localhost:8080/userlist/login', loginUser.userEmail)
-            .then(
-                navigate('/components/AdminSuccess')
-            )
+        console.log(loginUser);
+        axios.post('http://localhost:8080/userlist/login', loginUser)
             .catch((error) => {
-                console.error('Error logging in:', error);
+                console.error('Error:', error);
             });
-
-        navigate('/components/LoginPage');
     }
     return (
         <motion.div
@@ -42,8 +38,8 @@ export default function Login() {
             <h1>ログインページ</h1>
             <p>ログインIDとパスワードを入力してください</p>
             <form onSubmit={toLogin}>
-                <input type="text" name="userEmail" placeholder="mailaddress" value="abc@cdf.com" required/><br />
-                <input type="password" name="userPassword" placeholder="Password" value="abcdef1" required/><br />
+                <input type="text" name="userEmail" placeholder="mailaddress" required/><br />
+                <input type="password" name="userPassword" placeholder="Password"  required/><br />
                 <button type='submit'>ログイン</button>
             </form>
         </motion.div>

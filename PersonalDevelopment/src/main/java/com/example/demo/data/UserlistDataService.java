@@ -18,8 +18,12 @@ public class UserlistDataService{
 		return repository.findAll();
     }
 	
-	public Userlist add(Userlist newUser) {
-		return repository.save(newUser);
+	public Userlist add(Userlist userlist) {
+		if (repository.findByMailaddress(userlist.getUserEmail()) != null) {
+			System.out.println("メールアドレスが重複しています");
+			return null;
+		}
+		return repository.save(userlist);
 		
 		
 		
@@ -30,14 +34,25 @@ public class UserlistDataService{
 		
 		
 	}
-	
 
-//	public String login(String userEmail ,Userlist userlist) {
-//		if(userEmail Instanceof Userlist) {
-//            return repository.findByUserPassword(userEmail);
-//        }
-//		// TODO 自動生成されたメソッド・スタブ
-//		 return null;
-//	}
+	public Userlist login(String userEmail, String userPassword) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	public Userlist update(int user, Userlist userlist ) {
+		Userlist newUser  = repository.findById(user).orElse(null);
+		if (newUser  != null) {
+			newUser .setUserName(userlist.getUserName());
+			newUser .setUserEmail(userlist.getUserEmail());
+			newUser .setUserPassword(userlist.getUserPassword());
+			newUser.setUserAge(userlist.getUserAge());
+			newUser .setUserGender(userlist.getUserGender());
+
+			return repository.save(newUser);
+		}
+		return null;
+	}
+	
 
 }
